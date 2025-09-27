@@ -1,128 +1,22 @@
-# niri-Dotfiles
+|                   category                    |            program            |
+| :-------------------------------------------: | :---------------------------: |
+|           Sceen locker for Wayland            |           swaylock            |
+|      Idle management daemon for Wayland       |           swayidle            |
+|        Highly customizable Wayland bar        |            waybar             |
+| Laucher for wlroots-based wayland compositors |          wofi,fuzzel          |
+|  Lightweight notification daemon for Wayland  |          mako,dunst           |
+|           Internet Wireless Daemon            |          iwd,dhcpcd           |
+|         Manage user directories tool          |         xdg-user-dirs         |
+|      Lightweight brightness contorl tool      |         brightnessctl         |
+|         Xwayland outside your Wayland         |      xwayland-satellite       |
+|              TUI display manager              |              ly               |
+|            GTK+ bluetooth Manager             |            blueman            |
+|                   emulator                    |        kitty,alacritty        |
+|         Smart and user friendly shell         |             fish              |
+|     The cross-shell prompt for astronauts     |           starship            |
+|                    Editor                     |         neovim,typora         |
+|                 Iconic fonts                  | misans,lxgw-wenkai,nerd-fonts |
+|                    Browser                    |           librewolf           |
+|            system information tool            |           fastfetch           |
+|      Blazing fast terminal file manager       |             yazi              |
 
----
-
-[Preview](#preview)  
-[Dependencies](#dependencies)  
-[Extras](#optional-extras)  
-[Install Script](#install-script)  
-[Manual Install](#manual-install)  
-[Credit](#credit)  
-
----
-
-## Preview
-
-![Empty](<./assets/Blank.png>)
-*Blank Workspace*  
-
-
-![Empty](<./assets/Fetch.png>)
-*Fastefetch, Kitty and Firefox*  
-
-
-![Empty](<./assets/Solarvim.png>)
-*Neovim Config*  
-
-
-![Empty](<./assets/Floating.png>)
-*Yazi and mpv*  
-
-
-![Empty](<./assets/Launcher.png>)
-*Waybar app launcher*  
-
-
----
-
-## Dependencies
-- niri
-
-- fuzzel
-- waybar
-- dunst
-- hyprlock
-- rofi
-
-- neovim
-- kitty
-- yazi
-
-- CaskaydiaCove Nerd Font / CascadiaCode
-- Tela Circle Dracula Icons
-
----
-
-## Optional Extras
-> lacking some require modification of the niri config file, indicated by *
-
-- \* firefox
-- \* brightnessctl
-- \* discord
-
-- fastfetch
-
----
-
-## Install Script
-
-> [!IMPORTANT]
-> To use the install script the following should be installed:  
-> Wget, Git, Niri, Fuzzel, Neovim, Dunst, Fuzzel, Fastfetch, Yazi, Kitty, mpv, Hyprlock, Swayidle and Swaybg
-
-1. Download the install script:
-```console
-wget https://raw.githubusercontent.com/DoubleDotStudios/niri-dotfiles/refs/heads/main/install.sh
-```
-
-2. Make the script executable:
-```console
-chmod +x install.sh
-```
-
-3. Run the installer:
-```console
-./install.sh
-```
-
----
-
-## Manual Install
-
-1. Clone the repo:
-```console
-git clone https://github.com/DoubleDotStudios/niri-dotfiles
-cd ./niri-dotfiles
-```
-
-2. Move all directories except `wallpapers` and `rofi/local` to `~/.config`:
-```console
-mv ./niri ~/.config/
-mv ./nvim ~/.config/
-mv ./dunst ~/.config/
-mv ./kitty ~/.config/
-mv ./waybar ~/.config/
-mv ./fastfetch ~/.config/
-mv ./yazi ~/.config/
-mv ./fuzzel ~/.config/
-mv ./mpv ~/.config/
-mv ./hypr ~/.config/
-```
-
-3. Move `rofi/local` to `~/.local/share/rofi`
-```
-mv ./rofi/local ~/.local/share/rofi
-```
-
-3. Move `wallpapers` to `~/Pictures/Wallpapers`:
-```console
-mv ./wallpapers ~/Pictures/Wallpapers
-```
-
----
-
-### Credit
-
-Catppuccin: [mpv](https://github.com/catppuccin/mpv), [Yazi](https://github.com/catppuccin/yazi), [Hyprlock](https://github.com/catppuccin/hyprlock), [Fuzzel](https://github.com/catppuccin/fuzzel)  
-Sansroot: [Waybar](https://github.com/sansroot/hypr-dots/tree/mauve/waybar)  
-Lactua: [Rofi](https://github.com/lactua/dotfiles/tree/master/dots/rofi)
