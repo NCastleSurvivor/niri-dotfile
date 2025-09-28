@@ -349,7 +349,7 @@ window-rule {
     draw-border-with-background false
 }
 
-workspace "Browser"
+//workspace "Browser"
 window-rule {
     match app-id=r#"zen*."#
     match app-id="brave-browser"
@@ -359,7 +359,7 @@ window-rule {
     open-on-workspace "Browser"
 }
 
-workspace "Code"
+//workspace "Code"
 window-rule {
     match app-id="kitty"
     match title=r#".*Lapce$"#
@@ -450,7 +450,7 @@ binds {
     Mod+Ctrl+Down    hotkey-overlay-title="下移窗口"     { move-window-down; }
     Mod+Ctrl+Up      hotkey-overlay-title="上移窗口"     { move-window-up; }
     Mod+Ctrl+Right   hotkey-overlay-title="右移窗口"     { move-column-right; }
-    Mod+Ctrl+F       hotkey-overlay-title="使窗口悬浮"   { toggle-window-floating; }
+    Mod+V            hotkey-overlay-title="使窗口悬浮"   { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+J     { move-window-down; }
