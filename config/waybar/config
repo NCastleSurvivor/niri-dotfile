@@ -16,41 +16,6 @@
                 "default": ""
          },
      },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    },
-    "custom/launcher":{
-        "format": " ",
-        "on-click": "fuzzel --config ~/.config/fuzzel/launcher.ini || pkill fuzzel",
-        "on-click-right": "pkill fuzzel",
-        "tooltip": false,
-    },
-    "custom/music": {
-        "format": "  {}",
-        "escape": true,
-        "interval": 5,
-        "tooltip": false,
-        "exec": "playerctl metadata --format='{{ title }}'",
-        "on-click": "playerctl play-pause",
-        "max-length": 50
-    },
-    "clock": {
-        "timezone": "Pacific/Auckland",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "  {:%d/%m/%Y}",
-        "format": "  {:%H:%M}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%",
-        "format-muted": " ",
-        "format-icons": {
-            "default": ["", "", ""]
-        },
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "on-click-right": "pavucontrol",
-    },
     "custom/lock": {
         "tooltip": false,
         "on-click": "hyprlock &",
@@ -63,18 +28,6 @@
     },
     "niri/language": {
         "format": "  {short}",
-    },
-        "network": {
-        "interface": "wlan0",
-
-        "format": "{ifname}",
-        "format-disconnected": "",
-
-        "format-wifi": " ",
-        "format-alt": "  {essid}",
-
-        "tooltip-format": "{signalStrength}%",
-        "tooltip-format-wifi": "{essid} {signalStrength}%",
-        "tooltip-format-disconnected": "No Connection",
     }
+
 }

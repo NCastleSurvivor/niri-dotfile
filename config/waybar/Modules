@@ -20,7 +20,21 @@
 	],
 	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
 },
-
+"custom/launcher":{
+     "format": " ",
+     "on-click": "fuzzel --config ~/.config/fuzzel/launcher.ini || pkill fuzzel",
+     "on-click-right": "pkill fuzzel",
+     "tooltip": false,
+    },
+"custom/music": {
+     "format": "  {}",
+     "escape": true,
+     "interval": 5,
+     "tooltip": false,
+     "exec": "playerctl metadata --format='{{ title }}'",
+     "on-click": "playerctl play-pause",
+     "max-length": 50
+    },
 "temperature#vertical": {
 	"interval": 10,
 	"tooltip": true,
@@ -128,11 +142,11 @@
 //	}
 //},
 "clock": {
-	"interval": 1,
-	"format": "<b>{:%Y年%m月%d日 %H:%M:%S %A}</b>",
-	"tooltip": true,
-	"tooltip-format": "<big>{:%Y年%m月%d日}</big>\n<tt><small>{calendar}</small></tt>",
-},
+    "timezone": "Pacific/Auckland",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "  {:%d/%m/%Y}",
+    "format": "  {:%H:%M}"
+    },
 "actions": {
 	"on-click-right": "mode",
 	"on-click-forward": "tz_up",
@@ -250,6 +264,19 @@
 	// "ignored-players": ["firefox"]
 	"max-length": 30,
 },
+"network": {
+    "interface": "wlan0",
+
+    "format": "{ifname}",
+    "format-disconnected": "",
+
+    "format-wifi": " ",
+    "format-alt": "  {essid}",
+
+    "tooltip-format": "{signalStrength}%",
+    "tooltip-format-wifi": "{essid} {signalStrength}%",
+    "tooltip-format-disconnected": "No Connection",
+},
 "network#2": {
 	"format": "{ifname}",
 	"format-wifi": "{icon}",
@@ -351,13 +378,13 @@
 	"scroll-step": 5,
 },
 "tray": {
-	"icon-size": 20,
-	"spacing": 4,
+	"icon-size": 21,
+	"spacing": 10,
 },
 "wireplumber": {
 	"format": "{icon} {volume} %",
 	"format-muted": " Mute",
-	"on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
+	//"on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
 	"max-volume": "100.0",
 	"scroll-step": 5.0,
 	//"on-click-right": "pavucontrol -t 3",
