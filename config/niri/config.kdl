@@ -1,13 +1,10 @@
-// This config is in the KDL format: https://kdl.dev
-// "/-" comments out the following node.
-// Check the wiki for a full description of the configuration:
-// https://yalter.github.io/niri/Configuration:-Introduction
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
 spawn-at-startup "xwayland-satellite :12"
-// Input device configuration.
-// Find the full list of options on the wiki:
-// https://yalter.github.io/niri/Configuration:-Input
+
+//要运行shell命令则需要使用spawn-sh-at-startup
+spawn-sh-at-startup "swaybg -i $HOME/.config/niri/wallpaper/wallhaven-gpk2ke_1920x1080.png -m fill"
+
 xwayland-satellite {
     path "/usr/bin/xwayland-satellite"
 }
@@ -15,25 +12,13 @@ xwayland-satellite {
 input {
     keyboard {
         xkb {
-            // You can set rules, model, layout, variant and options.
-            // For more information, see xkeyboard-config(7).
-
-            // For example:
-            // layout "us,ru"
-            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
-
-            // If this section is empty, niri will fetch xkb settings
-            // from org.freedesktop.locale1. You can control these using
-            // localectl set-x11-keymap.
+            layout "us"
         }
 
-        // Enable numlock on startup, omitting this setting disables it.
+        // 在自动启动上启用数字键 
         numlock
     }
 
-    // Next sections include libinput settings.
-    // Omitting settings disables them, or leaves them at their default values.
-    // All commented-out settings here are examples, not defaults.
     touchpad {
         // off
         tap
@@ -42,7 +27,8 @@ input {
         // drag false
         // drag-lock
         natural-scroll
-         accel-speed 1.0
+        //设置触摸板移动速度，范围「-1 ~ 1」
+        accel-speed 1.0
         // accel-profile "flat"
         // scroll-method "two-finger"
         // disabled-on-external-mouse
@@ -51,7 +37,7 @@ input {
     mouse {
         // off
         // natural-scroll
-        // accel-speed 0.2
+         accel-speed 1
         // accel-profile "flat"
         // scroll-method "no-scroll"
     }
@@ -67,75 +53,45 @@ input {
         // middle-emulation
     }
 
-    // Uncomment this to make the mouse warp to the center of newly focused windows.
-    // warp-mouse-to-focus
-
-    // Focus windows and outputs automatically when moving the mouse into them.
-    // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
 }
 
 cursor {
     xcursor-size 12
+    //打字时隐藏光标
     hide-when-typing
 }
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-// The built-in laptop monitor is usually called "eDP-1".
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
+
+//显示器设置 niri运行后可以通过 「niri  msg output」找到显示屏名称
 output "eDP-1" {
-    // Uncomment this line to disable this output.
+    // 取消注释以禁用此显示器.
     // off
 
-    // Resolution and, optionally, refresh rate of the output.
-    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
-    // If the refresh rate is omitted, niri will pick the highest refresh rate
-    // for the resolution.
-    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
-    // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+    //默认聚焦此显示器
+    focus-at-startup
+    //设置分辨率及刷新率，如不设置刷新率，则自动选择最高刷新率
     mode "1920x1080@60.030"
 
-    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
+    // 设置分数缩放.
     scale 1
 
-    // Transform allows to rotate the output counter-clockwise, valid values are:
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    // Transform 允许逆时针旋转显示器，有效值: normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
 
-    // Position of the output in the global coordinate space.
-    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
-    // The cursor can only move between directly adjacent outputs.
-    // Output scale and rotation has to be taken into account for positioning:
-    // outputs are sized in logical, or scaled, pixels.
-    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
-    // so to put another output directly adjacent to it on the right, set its x to 1920.
-    // If the position is unset or results in an overlap, the output is instead placed
-    // automatically.
     position x=1280 y=0
 }
 
-// Settings that influence how windows are positioned and sized.
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Layout
 layout {
-    // Set gaps around windows in logical pixels.
+    // 设置windows周围缝隙
     gaps 7
 
-    // When to center a column when changing focus, options are:
-    // - "never", default behavior, focusing an off-screen column will keep at the left
-    //   or right edge of the screen.
-    // - "always", the focused column will always be centered.
-    // - "on-overflow", focusing a column will center it if it doesn't fit
-    //   together with the previously focused column.
-    center-focused-column "never"
+    //存在多个窗口时未最大化窗口自动居中，可设置nerver always on-overflow
+    center-focused-column "on-overflow"
 
-    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
+    //只有一个窗口时自动居中显示
+    always-center-single-column
+
+    // Mod+R 预设宽度
     preset-column-widths {
-        // Proportion sets the width as a fraction of the output width, taking gaps into account.
-        // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
-        // The default preset widths are 1/3, 1/2 and 2/3 of the output.
         proportion 0.25
         proportion 0.5
         proportion 0.75
@@ -143,7 +99,6 @@ layout {
         //proportion 0.33333
         //proportion 0.5
         //proportion 0.66667
-
         // Fixed sets the width in logical pixels exactly.
         // fixed 1920
     }
@@ -176,45 +131,18 @@ layout {
     focus-ring {
         // Uncomment this line to disable the focus ring.
         // off
+        //设置聚焦框宽度为0,使用边框避免与边框同时显示
+        width 0
 
-        // How many logical pixels the ring extends out from the windows.
-        width 4
-
-        // Colors can be set in a variety of ways:
-        // - CSS named colors: "red"
-        // - RGB hex: "#rgb", "#rgba", "#rrggbb", "#rrggbbaa"
-        // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
-
-        // Color of the ring on the active monitor.
         active-color "#7fc8ff"
-
-        // Color of the ring on inactive monitors.
-        //
-        // The focus ring only draws around the active window, so the only place
-        // where you can see its inactive-color is on other monitors.
         inactive-color "#505050"
-
-        // You can also use gradients. They take precedence over solid colors.
-        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
-        // The angle is the same as in linear-gradient, and is optional,
-        // defaulting to 180 (top-to-bottom gradient).
-        // You can use any CSS linear-gradient tool on the web to set these up.
-        // Changing the color space is also supported, check the wiki for more info.
-        //
-        // active-gradient from="#80c8ff" to="#c7ff7f" angle=45
-
-        // You can also color the gradient relative to the entire view
-        // of the workspace, rather than relative to just the window itself.
-        // To do that, set relative-to="workspace-view".
-        //
-        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
     // You can also add a border. It's similar to the focus ring, but always visible.
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        off
+        //off
 
         width 4
         active-color "#cba6f7"
@@ -304,17 +232,10 @@ hotkey-overlay {
 // After enabling or disabling this, you need to restart the apps for this to take effect.
 // prefer-no-csd
 
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
+//系统截屏存放路径
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-// You can also set this to null to disable saving screenshots to disk.
-// screenshot-path null
 
-// Animation settings.
-// The wiki explains how to configure individual animations:
-// https://yalter.github.io/niri/Configuration:-Animations
 animations {
     // Uncomment to turn off all animations.
     // off
@@ -323,12 +244,6 @@ animations {
     // slowdown 3.0
 }
 
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Window-Rules
-
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
@@ -404,10 +319,9 @@ window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
-
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+F12         hotkey-overlay-title="随机壁纸"                            { spawn "waypaper" "--random"; }
+    Mod+F12         hotkey-overlay-title="随机壁纸"   { spawn "waypaper" "--random"; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
@@ -418,15 +332,11 @@ binds {
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
-
+    //音量 & 亮度控制
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-
-    // Example brightness key mappings for brightnessctl.
-    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
-    // but you need to manually put each argument in separate "" quotes.
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
@@ -436,7 +346,8 @@ binds {
     Mod+O   hotkey-overlay-title="总览"        repeat=false  { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
-
+    
+    // 窗口聚焦切换，位置移动
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
@@ -445,7 +356,8 @@ binds {
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
-
+    
+    // 上下方向
     Mod+Ctrl+Left    hotkey-overlay-title="左移窗口"     { move-column-left; }
     Mod+Ctrl+Down    hotkey-overlay-title="下移窗口"     { move-window-down; }
     Mod+Ctrl+Up      hotkey-overlay-title="上移窗口"     { move-window-up; }
@@ -456,13 +368,6 @@ binds {
     Mod+Ctrl+J     { move-window-down; }
     Mod+Ctrl+K     { move-window-up; }
     Mod+Ctrl+L     { move-column-right; }
-
-    // Alternative commands that move across workspaces when reaching
-    // the first or last window in a column.
-    // Mod+J     { focus-window-or-workspace-down; }
-    // Mod+K     { focus-window-or-workspace-up; }
-    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
@@ -544,15 +449,8 @@ binds {
     // touchpads by default.
     // Mod+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
     // Mod+TouchpadScrollUp   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
-
-    // You can refer to workspaces by index. However, keep in mind that
-    // niri is a dynamic workspace system, so these commands are kind of
-    // "best effort". Trying to refer to a workspace index bigger than
-    // the current workspace count will instead refer to the bottommost
-    // (empty) workspace.
-    //
-    // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
-    // will all refer to the 3rd workspace.
+    
+    // 切换 workspace.
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
     Mod+3 { focus-workspace 3; }
@@ -562,6 +460,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+    // 移动窗口到其他工作空间
     Mod+Ctrl+1 { move-column-to-workspace 1; }
     Mod+Ctrl+2 { move-column-to-workspace 2; }
     Mod+Ctrl+3 { move-column-to-workspace 3; }
@@ -584,36 +483,22 @@ binds {
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
-    // Consume one window from the right to the bottom of the focused column.
-    // Expel the bottom window from the focused column to the right.
     Mod+Tab        hotkey-overlay-title="开启窗口组"             { toggle-column-tabbed-display; }
     Mod+Ctrl+Tab   hotkey-overlay-title="将右侧窗口移入窗口组"   { consume-window-into-column; }
     Mod+Alt+Tab    hotkey-overlay-title="将窗口移出窗口组"       { expel-window-from-column; }
 
-    // Cycling through the presets in reverse order is also possible.
     Mod+R         hotkey-overlay-title="更改窗口大小"     { switch-preset-column-width; }
     Mod+Shift+R         hotkey-overlay-title="更改窗口大小"     { switch-preset-window-height; }
     Mod+Ctrl+R         hotkey-overlay-title="更改窗口大小"     { reset-window-height; }
     Mod+F         hotkey-overlay-title="窗口最大化"       { maximize-column; }
     Mod+Shift+F   hotkey-overlay-title="窗口全屏"         { fullscreen-window; }
 
-    // Expand the focused column to space not taken up by other fully visible columns.
-    // Makes the column "fill the rest of the space".
-//    Mod+Ctrl+F { expand-column-to-available-width; }
 
     Mod+C         hotkey-overlay-title="将窗口移至中央"   { center-column; }
 
     // Center all fully visible columns on screen.
     Mod+Ctrl+C { center-visible-columns; }
 
-    // Finer width adjustments.
-    // This command can also:
-    // * set width in pixels: "1000"
-    // * adjust width in pixels: "-5" or "+5"
-    // * set width as a percentage of screen width: "25%"
-    // * adjust width as a percentage of screen width: "-10%" or "+10%"
-    // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
-    // set-column-width "100" will make the column occupy 200 physical screen pixels.
     Mod+Minus   hotkey-overlay-title="减小窗口宽度"       { set-column-width "-5%"; }
     Mod+Equal   hotkey-overlay-title="增大窗口宽度"       { set-column-width "+5%"; }
 
