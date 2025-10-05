@@ -5,6 +5,14 @@ spawn-at-startup "xwayland-satellite :12"
 //要运行shell命令则需要使用spawn-sh-at-startup
 spawn-sh-at-startup "swaybg -i $HOME/.config/niri/wallpaper/wallhaven-gpk2ke_1920x1080.png -m fill"
 
+environment {
+    XMODIFIERS  "@im=fcitx"
+    QT_IM_MODULES   "wayland;fcitx"
+    GTK_IM_MODULES  null
+    SDL_IM_MODULES  null
+    GLFM_IM_MODULES  null
+}
+
 xwayland-satellite {
     path "/usr/bin/xwayland-satellite"
 }
