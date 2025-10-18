@@ -33,14 +33,15 @@ return {
 		lazy = false,
 		config = function()
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			local lspconfig = require("lspconfig")
+			--local lspconfig = require("lspconfig")
+			--local lspconfig = vim.lsp.config("lspconfig")
 
 			-- servers setup
-			for _, server in ipairs(servers) do
-				lspconfig[server].setup({
-					capabilities = capabilities,
-				})
-			end
+			--for _, server in ipairs(servers) do
+			--	lspconfig[server].setup({
+			--		capabilities = capabilities,
+			--	})
+			--end
 
 			-- keymaps
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
